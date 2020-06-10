@@ -197,6 +197,9 @@
           <a-collapse-panel :header="$t('topArticles')" key="6">
             <a-switch v-model="form.isTop"></a-switch>
           </a-collapse-panel>
+          <a-collapse-panel :header="$t('tweets')" key="7">
+            <a-switch v-model="form.isTweet"></a-switch>
+          </a-collapse-panel>
         </a-collapse>
       </a-drawer>
 
@@ -275,6 +278,7 @@ export default class ArticleUpdate extends Vue {
     published: false,
     hideInList: false,
     isTop: false,
+    isTweet: false,
     featureImage: {
       path: '',
       name: '',
@@ -354,6 +358,7 @@ export default class ArticleUpdate extends Vue {
         this.form.published = currentPost.data.published
         this.form.hideInList = currentPost.data.hideInList
         this.form.isTop = currentPost.data.isTop
+        this.form.isTweet = currentPost.data.isTweet
 
         if (currentPost.data.feature && currentPost.data.feature.includes('http')) {
           this.form.featureImagePath = currentPost.data.feature

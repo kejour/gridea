@@ -6,6 +6,7 @@ export interface IPostData {
   tags?: []
   feature: string
   isTop: boolean
+  isTweet: boolean
 }
 
 export interface IPost {

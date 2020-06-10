@@ -134,6 +134,7 @@ export default class Renderer extends Model {
           link: urlJoin(themeConfig.domain, themeConfig.postPath, item.fileName, '/'),
           hideInList: !!item.data.hideInList,
           isTop: !!item.data.isTop,
+          isTweet: !!item.data.isTweet,
           stats,
           description: `${content.replace(/<[^>]*>/g, '').substring(0, 120)}${content[121] ? '...' : ''}`,
         }

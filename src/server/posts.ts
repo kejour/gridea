@@ -65,6 +65,7 @@ published: ${data.published || false}
 hideInList: ${data.hideInList || false}
 feature: ${data.feature || ''}
 isTop: ${data.isTop || false}
+isTweet: ${data.isTweet || false}
 ---
 ${postMatter.content}`
 
@@ -127,6 +128,10 @@ ${postMatter.content}`
         item.data.isTop = false
       }
 
+      if (item.data.isTweet === undefined) {
+        item.data.isTweet = false
+      }
+
       list.push(item)
     })
 
@@ -172,6 +177,7 @@ published: ${post.published}
 hideInList: ${post.hideInList}
 feature: ${post.featureImage.name ? `/post-images/${post.fileName}.${extendName}` : post.featureImagePath}
 isTop: ${post.isTop}
+isTweet: ${post.isTweet}
 ---
 ${content}`
 

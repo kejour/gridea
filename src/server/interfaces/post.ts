@@ -9,6 +9,7 @@ export interface IPost {
   published: boolean
   hideInList: boolean
   isTop: boolean
+  isTweet: boolean
   featureImage: {
     name?: string,
     path?: string,
@@ -25,6 +26,7 @@ export interface IPostData {
   published: boolean
   hideInList: boolean
   isTop: boolean
+  isTweet: boolean
   tags?: []
   feature: string
 }
@@ -66,6 +68,7 @@ export interface IPostRenderData {
   link: string
   hideInList: boolean
   isTop: boolean
+  isTweet: boolean
   toc?: any
   stats: IStats
   nextPost?: IPostRenderData

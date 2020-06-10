@@ -73,6 +73,9 @@
             <div v-if="post.data.isTop" class="ml-2 text-xs flex items-center px-2 rounded-b rounded-br-none bg-yellow-400 text-gray-900">
               TOP
             </div>
+            <div v-if="post.data.isTweet" class="ml-2 text-xs flex items-center px-2 rounded-b rounded-br-none bg-blue-400 text-white">
+              Tweet
+            </div>
           </div>
         </div>
       </div>
