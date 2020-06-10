@@ -7,6 +7,9 @@
       <a-tab-pane :tab="$t('commentSetting')" key="2">
         <comment-setting></comment-setting>
       </a-tab-pane>
+      <a-tab-pane :tab="$t('privatePost')" key="3">
+        <PrivatePostSetting></PrivatePostSetting>
+      </a-tab-pane>
     </a-tabs>
   </div>
 </template>
@@ -17,13 +20,16 @@ import { Vue, Component } from 'vue-property-decorator'
 import { State } from 'vuex-class'
 import BasicSetting from './includes/BasicSetting.vue'
 import CommentSetting from './includes/CommentSetting.vue'
+import PrivatePostSetting from './includes/PrivatePostSetting.vue'
 
 @Component({
   components: {
     BasicSetting,
     CommentSetting,
+    PrivatePostSetting,
   },
 })
+
 export default class Setting extends Vue {
 
 }

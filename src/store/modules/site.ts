@@ -7,6 +7,7 @@ import { ISetting, ICommentSetting } from '../../interfaces/setting'
 import {
   DEFAULT_POST_PAGE_SIZE, DEFAULT_ARCHIVES_PAGE_SIZE, DEFAULT_FEED_COUNT, DEFAULT_ARCHIVES_PATH, DEFAULT_POST_PATH, DEFAULT_TAG_PATH,
 } from '../../helpers/constants'
+import { IPrivatePostSetting } from '@/server/interfaces/setting'
 
 export interface Site {
   appDir: string
@@ -20,7 +21,9 @@ export interface Site {
   themes: string[]
   setting: ISetting
   commentSetting: ICommentSetting
+  privatePostSetting: IPrivatePostSetting
 }
+
 const siteState: Site = {
   appDir: '',
   config: {},
@@ -78,6 +81,10 @@ const siteState: Site = {
       shortname: '',
     },
   },
+  privatePostSetting: {
+    enable: false,
+    key: '',
+  },
 }
 
 const mutations: MutationTree<Site> = {
@@ -101,6 +108,7 @@ const mutations: MutationTree<Site> = {
     state.commentSetting = siteData.commentSetting
     state.themeCustomConfig = siteData.themeCustomConfig
     state.currentThemeConfig = siteData.currentThemeConfig
+    state.privatePostSetting = siteData.privatePostSetting
   },
   updatePosts(state, posts: IPost[]) {
     state.posts = posts

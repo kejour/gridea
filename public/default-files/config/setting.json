@@ -22,5 +22,9 @@
       "repository": ""
     },
     "showComment": false
+  },
+  "private": {
+    "enable": false,
+    "key": ""
   }
 }

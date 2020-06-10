@@ -1,5 +1,10 @@
 <template>
-  <div class="article-update-page" :class="{ 'is-entering': entering }" v-if="visible" @mousemove="handlePageMousemove">
+  <div
+    class="article-update-page"
+    :class="{ 'is-entering': entering }"
+    v-if="visible"
+    @mousemove="handlePageMousemove"
+  >
     <div class="page-title" ref="pageTitle">
       <a-row type="flex" justify="end">
         <a-tooltip placement="bottom" :title="$t('back')">
@@ -13,7 +18,12 @@
           </div>
         </a-tooltip>
         <a-tooltip placement="bottom" :title="$t('save')">
-          <div class="op-btn save-btn" tabindex="0" :class="{ 'disabled': !canSubmit }" @click="savePost">
+          <div
+            class="op-btn save-btn"
+            tabindex="0"
+            :class="{ 'disabled': !canSubmit }"
+            @click="savePost"
+          >
             <i class="zwicon-checkmark"></i>
           </div>
         </a-tooltip>
@@ -21,7 +31,14 @@
     </div>
     <div class="page-content">
       <div class="editor-wrapper">
-        <a-input class="post-title" size="large" :placeholder="$t('title')" v-model="form.title" @change="handleTitleChange" @keydown="handleInputKeydown"></a-input>
+        <a-input
+          class="post-title"
+          size="large"
+          :placeholder="$t('title')"
+          v-model="form.title"
+          @change="handleTitleChange"
+          @keydown="handleInputKeydown"
+        ></a-input>
         <monaco-markdown-editor
           ref="monacoMarkdownEditor"
           v-model="form.content"
@@ -30,7 +47,11 @@
           class="post-editor"
         ></monaco-markdown-editor>
         <div class="footer-info">
-          {{ $t('writingIn') }} <a @click.prevent="openPage('https://gridea.dev')" class="link">Gridea</a>
+          {{ $t('writingIn') }}
+          <a
+            @click.prevent="openPage('https://gridea.dev')"
+            class="link"
+          >Gridea</a>
         </div>
 
         <div class="right-tool-container">
@@ -75,7 +96,12 @@
             </div>
           </a-tooltip>
           <a-tooltip placement="left" :title="`${$t('preview')} [Ctrl + P]`">
-            <div class="op-btn" v-shortkey="['ctrl', 'p']" @shortkey="shortPreviewPost" @click="previewPost">
+            <div
+              class="op-btn"
+              v-shortkey="['ctrl', 'p']"
+              @shortkey="shortPreviewPost"
+              @click="previewPost"
+            >
               <i class="zwicon-eye"></i>
             </div>
           </a-tooltip>
@@ -83,18 +109,21 @@
         <div class="right-bottom-tool-container">
           <a-popover placement="leftBottom" trigger="click">
             <template slot="content">
-              <div class="keyboard-tip">
-                💁‍♂️ 编辑区域右键能弹出快捷菜单哦
-              </div>
+              <div class="keyboard-tip">💁‍♂️ 编辑区域右键能弹出快捷菜单哦</div>
               <div class="keyboard-container">
                 <div class="item" v-for="(item, index) in shortcutKeys" :key="index">
                   <a-divider class="keyboard-group-title" orientation="left">{{ item.name }}</a-divider>
                   <div class="list">
-                    <div class="list-item" v-for="(listItem, listIndex) in item.list" :key="listIndex">
+                    <div
+                      class="list-item"
+                      v-for="(listItem, listIndex) in item.list"
+                      :key="listIndex"
+                    >
                       <div class="list-item-title">{{ listItem.title }}</div>
                       <div>
                         <span v-for="(keyCode, keyIndex) in listItem.keyboard" :key="keyIndex">
-                          <code>{{keyCode }}</code> <span v-if="keyIndex !== listItem.keyboard.length - 1"> + </span>
+                          <code>{{keyCode }}</code>
+                          <span v-if="keyIndex !== listItem.keyboard.length - 1">+</span>
                         </span>
                       </div>
                     </div>
@@ -121,14 +150,22 @@
         }"
         title=" "
       >
-        <img class="preview-feature-image" v-if="featureType === 'DEFAULT' && form.featureImage.path" :src="form.featureImage.path" alt="">
-        <img class="preview-feature-image" v-if="featureType === 'EXTERNAL' && form.featureImagePath" :src="form.featureImagePath" alt="">
+        <img
+          class="preview-feature-image"
+          v-if="featureType === 'DEFAULT' && form.featureImage.path"
+          :src="form.featureImage.path"
+          alt
+        />
+        <img
+          class="preview-feature-image"
+          v-if="featureType === 'EXTERNAL' && form.featureImagePath"
+          :src="form.featureImagePath"
+          alt
+        />
         <h1 class="preview-title">{{ form.title }}</h1>
         <div class="preview-date">{{ form.date.format(site.themeConfig.dateFormat) }}</div>
         <div class="preview-tags">
-          <span class="tag" v-for="(tag, index) in form.tags" :key="index">
-            {{ tag }}
-          </span>
+          <span class="tag" v-for="(tag, index) in form.tags" :key="index">{{ tag }}</span>
         </div>
         <div class="preview-container" ref="previewContainer"></div>
       </a-drawer>
@@ -143,6 +180,14 @@
         <a-collapse v-model="activeKey" class="post-settings" :bordered="false">
           <a-collapse-panel header="URL" key="1">
             <a-input v-model="form.fileName" @change="handleFileNameChange"></a-input>
+          </a-collapse-panel>
+          <a-collapse-panel :header="$t('privatePost')" key="8">
+            <a-switch
+              v-model="form.privatePost"
+              un-checked-children="OFF"
+              :checked="form.privatePost||false"
+              checked-children="ON"
+            ></a-switch>
           </a-collapse-panel>
           <a-collapse-panel :header="$t('tag')" key="2">
             <div>
@@ -161,13 +206,19 @@
           </a-collapse-panel>
 
           <a-collapse-panel :header="$t('featureImage')" key="4">
-            <a-radio-group style="margin-bottom: 16px;" defaultValue="a" buttonStyle="solid" v-model="featureType" size="small">
+            <a-radio-group
+              style="margin-bottom: 16px;"
+              defaultValue="a"
+              buttonStyle="solid"
+              v-model="featureType"
+              size="small"
+            >
               <a-radio-button value="DEFAULT">{{$t('default')}}</a-radio-button>
               <a-radio-button value="EXTERNAL">{{$t('external')}}</a-radio-button>
             </a-radio-group>
             <div v-if="featureType === 'DEFAULT'">
               <a-upload
-                action=""
+                action
                 listType="picture-card"
                 class="feature-uploader"
                 :showUploadList="false"
@@ -177,17 +228,23 @@
                   <img class="feature-image" :src="`file://${form.featureImage.path}`" height="150" />
                 </div>
                 <div v-else>
-                  <img src="@/assets/images/image_upload.svg" class="upload-img">
+                  <img src="@/assets/images/image_upload.svg" class="upload-img" />
                   <i class="zwicon-upload upload-icon"></i>
                 </div>
               </a-upload>
-              <a-button v-if="form.featureImage.path" type="danger" block icon="delete" @click="form.featureImage = {}" />
+              <a-button
+                v-if="form.featureImage.path"
+                type="danger"
+                block
+                icon="delete"
+                @click="form.featureImage = {}"
+              />
             </div>
             <div v-if="featureType === 'EXTERNAL'">
               <a-input v-model="form.featureImagePath"></a-input>
               <div class="tip-text">{{$t('pathContainHttps')}}</div>
               <div class="feature-image-container" v-if="form.featureImagePath">
-                <img class="feature-image" :src="form.featureImagePath" height="150">
+                <img class="feature-image" :src="form.featureImagePath" height="150" />
               </div>
             </div>
           </a-collapse-panel>
@@ -204,7 +261,13 @@
       </a-drawer>
 
       <!-- 编辑器点击图片上传用 -->
-      <input ref="uploadInput" class="upload-input" type="file" accept="image/*" @change="fileChangeHandler">
+      <input
+        ref="uploadInput"
+        class="upload-input"
+        type="file"
+        accept="image/*"
+        @change="fileChangeHandler"
+      />
 
       <span class="save-tip">{{ postStatusTip }}</span>
     </div>
@@ -213,7 +276,11 @@
 
 <script lang="ts">
 import {
-  ipcRenderer, IpcRendererEvent, shell, clipboard, remote,
+  ipcRenderer,
+  IpcRendererEvent,
+  shell,
+  clipboard,
+  remote,
 } from 'electron'
 import {
   Vue, Component, Prop, Watch,
@@ -242,32 +309,32 @@ import ga from '../../helpers/analytics'
   },
 })
 export default class ArticleUpdate extends Vue {
-  @Prop(Boolean) visible!: boolean
+  @Prop(Boolean) visible!: boolean;
 
-  @Prop(String) articleFileName!: string
+  @Prop(String) articleFileName!: string;
 
-  postSettingsVisible = false
+  postSettingsVisible = false;
 
-  previewVisible = false
+  previewVisible = false;
 
-  previewPostHTML = ''
+  previewPostHTML = '';
 
-  changedAfterLastSave = false
+  changedAfterLastSave = false;
 
-  entering = false
+  entering = false;
 
-  shortcutKeys = shortcutKeys
+  shortcutKeys = shortcutKeys;
 
   $refs!: {
-    uploadInput: any,
-    image: any,
-    articlePage: HTMLElement,
-    monacoMarkdownEditor: any,
-    previewContainer: HTMLElement,
-    pageTitle: HTMLElement,
-  }
+    uploadInput: any;
+    image: any;
+    articlePage: HTMLElement;
+    monacoMarkdownEditor: any;
+    previewContainer: HTMLElement;
+    pageTitle: HTMLElement;
+  };
 
-  @State('site') site!: Site
+  @State('site') site!: Site;
 
   form = {
     title: '',
@@ -279,6 +346,7 @@ export default class ArticleUpdate extends Vue {
     hideInList: false,
     isTop: false,
     isTweet: false,
+    privatePost: false,
     featureImage: {
       path: '',
       name: '',
@@ -286,24 +354,24 @@ export default class ArticleUpdate extends Vue {
     },
     featureImagePath: '',
     deleteFileName: '',
-  }
+  };
 
-  featureType: 'DEFAULT' | 'EXTERNAL' = 'DEFAULT'
+  featureType: 'DEFAULT' | 'EXTERNAL' = 'DEFAULT';
 
-  activeKey = ['1']
+  activeKey = ['1, 8'];
 
-  postStatusTip = ''
+  postStatusTip = '';
 
   get dateLocale() {
     return this.$root.$i18n.locale === 'zhHans' ? 'zh-cn' : 'en-us'
   }
 
   // 编辑文章时，当前文章的索引
-  currentPostIndex = -1
+  currentPostIndex = -1;
 
-  originalFileName = ''
+  originalFileName = '';
 
-  fileNameChanged = false
+  fileNameChanged = false;
 
   get canSubmit() {
     return this.form.title && this.form.content
@@ -315,8 +383,12 @@ export default class ArticleUpdate extends Vue {
 
   get postStats() {
     const reading = timeCalc(this.form.content)
-    const second = Number((reading.second - (reading.minius - 1) * 60).toFixed(2))
-    const formatTime = `${Math.floor(reading.second / 60)}m ${second < 60 ? second : ''}${second < 60 ? 's' : ''}`
+    const second = Number(
+      (reading.second - (reading.minius - 1) * 60).toFixed(2),
+    )
+    const formatTime = `${Math.floor(reading.second / 60)}m ${
+      second < 60 ? second : ''
+    }${second < 60 ? 's' : ''}`
 
     let wordsNumber = 0
     wordCount(this.form.content, (count: number) => {
@@ -336,16 +408,22 @@ export default class ArticleUpdate extends Vue {
       this.normalSavePost()
     })
 
-    this.$watch('form', () => {
-      this.changedAfterLastSave = true
-    }, { deep: true })
+    this.$watch(
+      'form',
+      () => {
+        this.changedAfterLastSave = true
+      },
+      { deep: true },
+    )
   }
 
   buildCurrentForm() {
     const { articleFileName } = this
     if (articleFileName) {
       this.fileNameChanged = true // 编辑文章标题时 URL 不跟随其变化
-      this.currentPostIndex = this.site.posts.findIndex((item: IPost) => item.fileName === articleFileName)
+      this.currentPostIndex = this.site.posts.findIndex(
+        (item: IPost) => item.fileName === articleFileName,
+      )
       const currentPost = this.site.posts[this.currentPostIndex]
       this.originalFileName = currentPost.fileName
 
@@ -353,19 +431,30 @@ export default class ArticleUpdate extends Vue {
         this.form.title = currentPost.data.title
         this.form.fileName = currentPost.fileName
         this.form.tags = currentPost.data.tags || []
-        this.form.date = moment(currentPost.data.date).isValid() ? moment(currentPost.data.date) : moment()
+        this.form.date = moment(currentPost.data.date).isValid()
+          ? moment(currentPost.data.date)
+          : moment()
         this.form.content = currentPost.content
         this.form.published = currentPost.data.published
         this.form.hideInList = currentPost.data.hideInList
         this.form.isTop = currentPost.data.isTop
         this.form.isTweet = currentPost.data.isTweet
+        this.form.privatePost = currentPost.data.private
 
-        if (currentPost.data.feature && currentPost.data.feature.includes('http')) {
+        if (
+          currentPost.data.feature
+          && currentPost.data.feature.includes('http')
+        ) {
           this.form.featureImagePath = currentPost.data.feature
           this.featureType = 'EXTERNAL'
         } else {
-          this.form.featureImage.path = (currentPost.data.feature && currentPost.data.feature.substring(7)) || ''
-          this.form.featureImage.name = this.form.featureImage.path.replace(/^.*[\\/]/, '')
+          this.form.featureImage.path = (currentPost.data.feature
+              && currentPost.data.feature.substring(7))
+            || ''
+          this.form.featureImage.name = this.form.featureImage.path.replace(
+            /^.*[\\/]/,
+            '',
+          )
         }
       }
     } else if (this.site.themeConfig.postUrlFormat === UrlFormats.ShortId) {
@@ -417,7 +506,10 @@ export default class ArticleUpdate extends Vue {
   }
 
   handleTitleChange(val: string) {
-    if (!this.fileNameChanged && this.site.themeConfig.postUrlFormat === UrlFormats.Slug) {
+    if (
+      !this.fileNameChanged
+      && this.site.themeConfig.postUrlFormat === UrlFormats.Slug
+    ) {
       this.form.fileName = slug(this.form.title)
     }
   }
@@ -449,7 +541,9 @@ export default class ArticleUpdate extends Vue {
 
   checkArticleUrlValid() {
     const restPosts = JSON.parse(JSON.stringify(this.site.posts))
-    const foundPostIndex = restPosts.findIndex((post: IPost) => post.fileName === this.form.fileName)
+    const foundPostIndex = restPosts.findIndex(
+      (post: IPost) => post.fileName === this.form.fileName,
+    )
 
     if (foundPostIndex !== -1) {
       if (this.currentPostIndex === -1) {
@@ -457,7 +551,9 @@ export default class ArticleUpdate extends Vue {
         return false
       }
       restPosts.splice(this.currentPostIndex, 1)
-      const index = restPosts.findIndex((post: IPost) => post.fileName === this.form.fileName)
+      const index = restPosts.findIndex(
+        (post: IPost) => post.fileName === this.form.fileName,
+      )
       if (index !== -1) {
         return false
       }
@@ -482,7 +578,9 @@ export default class ArticleUpdate extends Vue {
     }
 
     // 文件名改变之后，删除原来文件
-    if (this.form.fileName.toLowerCase() !== this.originalFileName.toLowerCase()) {
+    if (
+      this.form.fileName.toLowerCase() !== this.originalFileName.toLowerCase()
+    ) {
       this.form.deleteFileName = this.originalFileName
     }
 
@@ -510,11 +608,14 @@ export default class ArticleUpdate extends Vue {
     const form = this.formatForm(false)
 
     ipcRenderer.send('app-post-create', form)
-    ipcRenderer.once('app-post-created', (event: IpcRendererEvent, data: any) => {
-      this.updatePostSavedStatus()
-      this.$message.success(`🎉  ${this.$t('draftSuccess')}`)
-      this.$emit('fetchData')
-    })
+    ipcRenderer.once(
+      'app-post-created',
+      (event: IpcRendererEvent, data: any) => {
+        this.updatePostSavedStatus()
+        this.$message.success(`🎉  ${this.$t('draftSuccess')}`)
+        this.$emit('fetchData')
+      },
+    )
 
     ga.event('Post', 'Post - click-save-draft', {})
   }
@@ -524,11 +625,14 @@ export default class ArticleUpdate extends Vue {
     const form = this.formatForm(true)
 
     ipcRenderer.send('app-post-create', form)
-    ipcRenderer.once('app-post-created', (event: IpcRendererEvent, data: any) => {
-      this.updatePostSavedStatus()
-      this.$message.success(`🎉  ${this.$t('saveSuccess')}`)
-      this.$emit('fetchData')
-    })
+    ipcRenderer.once(
+      'app-post-created',
+      (event: IpcRendererEvent, data: any) => {
+        this.updatePostSavedStatus()
+        this.$message.success(`🎉  ${this.$t('saveSuccess')}`)
+        this.$emit('fetchData')
+      },
+    )
 
     ga.event('Post', 'Post - click-save-post', {})
   }
@@ -538,10 +642,13 @@ export default class ArticleUpdate extends Vue {
     const form = this.formatForm()
 
     ipcRenderer.send('app-post-create', form)
-    ipcRenderer.once('app-post-created', (event: IpcRendererEvent, data: any) => {
-      this.updatePostSavedStatus()
-      this.$emit('fetchData')
-    })
+    ipcRenderer.once(
+      'app-post-created',
+      (event: IpcRendererEvent, data: any) => {
+        this.updatePostSavedStatus()
+        this.$emit('fetchData')
+      },
+    )
   }
 
   insertImage() {
@@ -570,34 +677,48 @@ export default class ArticleUpdate extends Vue {
         let url = `![](file://${path})`
         url = url.replace(/\\/g, '/')
 
-        this.$refs.monacoMarkdownEditor.editor.getModel().applyEdits([{
-          range: monaco.Range.fromPositions(this.$refs.monacoMarkdownEditor.editor.getPosition()),
-          text: url,
-        }])
+        this.$refs.monacoMarkdownEditor.editor.getModel().applyEdits([
+          {
+            range: monaco.Range.fromPositions(
+              this.$refs.monacoMarkdownEditor.editor.getPosition(),
+            ),
+            text: url,
+          },
+        ])
       }
     })
   }
 
   insertMore() {
-    this.$refs.monacoMarkdownEditor.editor.getModel().applyEdits([{
-      range: monaco.Range.fromPositions(this.$refs.monacoMarkdownEditor.editor.getPosition()),
-      text: '\n<!-- more -->\n',
-    }])
+    this.$refs.monacoMarkdownEditor.editor.getModel().applyEdits([
+      {
+        range: monaco.Range.fromPositions(
+          this.$refs.monacoMarkdownEditor.editor.getPosition(),
+        ),
+        text: '\n<!-- more -->\n',
+      },
+    ])
 
     ga.event('Post', 'Post - click-add-more', {})
   }
 
   handleEmojiSelect(emoji: any) {
-    this.$refs.monacoMarkdownEditor.editor.getModel().applyEdits([{
-      range: monaco.Range.fromPositions(this.$refs.monacoMarkdownEditor.editor.getPosition()),
-      text: emoji,
-    }])
+    this.$refs.monacoMarkdownEditor.editor.getModel().applyEdits([
+      {
+        range: monaco.Range.fromPositions(
+          this.$refs.monacoMarkdownEditor.editor.getPosition(),
+        ),
+        text: emoji,
+      },
+    ])
   }
 
   previewPost() {
     this.previewVisible = true
     setTimeout(() => {
-      this.$refs.previewContainer.innerHTML = markdown.render(this.form.content)
+      this.$refs.previewContainer.innerHTML = markdown.render(
+        this.form.content,
+      )
       Prism.highlightAll()
     }, 1)
 
@@ -663,10 +784,10 @@ export default class ArticleUpdate extends Vue {
 }
 
 .feature-image {
-  max-width: 100%
+  max-width: 100%;
 }
 /deep/ .ant-upload.ant-upload-select-picture-card {
-  width: 100%
+  width: 100%;
 }
 
 /deep/ .ant-modal-content {
@@ -674,7 +795,7 @@ export default class ArticleUpdate extends Vue {
 }
 
 /deep/ .ant-collapse {
-  background: #F7F6F3;
+  background: #f7f6f3;
 }
 .article-update-page {
   position: fixed;
@@ -713,21 +834,22 @@ export default class ArticleUpdate extends Vue {
         background: #efefef;
       }
       &.save-btn:not(.disabled) {
-        color: #38A169;
+        color: #38a169;
         &:hover {
-          background: #9AE6B4;
-          color: #22543D;
+          background: #9ae6b4;
+          color: #22543d;
         }
         &:focus {
-          color: #22543D;
-          background: #68D391;
+          color: #22543d;
+          background: #68d391;
         }
       }
       &.disabled {
         cursor: default;
         color: #ccc;
         // background: #fafafa;
-        &:hover, &:focus {
+        &:hover,
+        &:focus {
           background: #fff;
         }
       }
@@ -861,11 +983,11 @@ export default class ArticleUpdate extends Vue {
   right: 12px;
   display: flex;
   flex-direction: column;
-  color: #A0AEC0;
+  color: #a0aec0;
   transition: color 0.3s ease;
   transition: opacity 700ms ease;
   &:hover {
-    color: #4A5568;
+    color: #4a5568;
   }
   .op-btn {
     font-size: 18px;
@@ -907,14 +1029,15 @@ export default class ArticleUpdate extends Vue {
 .preview-container {
   width: 100%;
   flex-shrink: 0;
-  font-family: "Droid Serif","PingFang SC","Hiragino Sans GB","Droid Sans Fallback","Microsoft YaHei",sans-serif;
+  font-family: "Droid Serif", "PingFang SC", "Hiragino Sans GB",
+    "Droid Sans Fallback", "Microsoft YaHei", sans-serif;
   font-size: 15px;
 
   /deep/ a {
-    color: rgba(0,0,0,.98);
+    color: rgba(0, 0, 0, 0.98);
     word-wrap: break-word;
     text-decoration: none;
-    border-bottom: 1px solid rgba(0,0,0,.26);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.26);
     &:hover {
       color: #000;
       border-bottom: 1px solid #000;
@@ -931,23 +1054,25 @@ export default class ArticleUpdate extends Vue {
     line-height: 1.62;
     margin-bottom: 1.12em;
     font-size: 15px;
-    letter-spacing: .05em;
+    letter-spacing: 0.05em;
     hyphens: auto;
   }
 
-  /deep/ p, /deep/ li {
+  /deep/ p,
+  /deep/ li {
     line-height: 1.62;
     code {
-      font-family: 'Source Code Pro', Consolas, Menlo, Monaco, 'Courier New', monospace;
+      font-family: "Source Code Pro", Consolas, Menlo, Monaco, "Courier New",
+        monospace;
       line-height: initial;
       word-wrap: break-word;
       border-radius: 0;
-      background-color: #FFF5F5;
-      color: #C53030;
-      padding: .2em .33333333em;
-      font-size: .875rem;
-      margin-left: .125em;
-      margin-right: .125em;
+      background-color: #fff5f5;
+      color: #c53030;
+      padding: 0.2em 0.33333333em;
+      font-size: 0.875rem;
+      margin-left: 0.125em;
+      margin-right: 0.125em;
     }
   }
 
@@ -957,22 +1082,23 @@ export default class ArticleUpdate extends Vue {
     border-radius: 2px;
     code {
       color: #000;
-      font-family: 'Source Code Pro', Consolas, Menlo, Monaco, 'Courier New', monospace;
+      font-family: "Source Code Pro", Consolas, Menlo, Monaco, "Courier New",
+        monospace;
     }
   }
 
   /deep/ blockquote {
     color: #9a9a9a;
     position: relative;
-    padding: .4em 0 0 2.2em;
-    font-size: .96em;
+    padding: 0.4em 0 0 2.2em;
+    font-size: 0.96em;
     &:before {
       position: absolute;
       top: -4px;
       left: 0;
       content: "\201c";
       font: 700 62px/1 serif;
-      color: rgba(0,0,0,.1);
+      color: rgba(0, 0, 0, 0.1);
     }
   }
 
@@ -986,13 +1112,15 @@ export default class ArticleUpdate extends Vue {
         background-color: #f6f8fa;
       }
     }
-    td, th {
+    td,
+    th {
       border: 1px solid #dfe2e5;
-      padding: .6em 1em;
+      padding: 0.6em 1em;
     }
   }
 
-  /deep/ ul, /deep/ ol {
+  /deep/ ul,
+  /deep/ ol {
     padding-left: 35px;
     line-height: 1.62;
     margin-bottom: 16px;
@@ -1006,7 +1134,12 @@ export default class ArticleUpdate extends Vue {
     list-style-type: square !important;
   }
 
-  /deep/ h1, h2, h3, h4, h5, h6 {
+  /deep/ h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     margin: 16px 0;
     font-weight: 700;
     padding-top: 16px;
@@ -1035,7 +1168,7 @@ export default class ArticleUpdate extends Vue {
     border: 0;
     margin: 2.24em auto 2.86em;
     &:before {
-      color: rgba(0,0,0,.2);
+      color: rgba(0, 0, 0, 0.2);
       font-size: 1.1em;
       display: block;
       content: "* * *";
@@ -1052,7 +1185,7 @@ export default class ArticleUpdate extends Vue {
     &:before {
       content: "";
       display: block;
-      border-top: 4px solid rgba(0,0,0,.1);
+      border-top: 4px solid rgba(0, 0, 0, 0.1);
       width: 50%;
       max-width: 100px;
       margin: 40px 0 20px;
@@ -1076,12 +1209,12 @@ export default class ArticleUpdate extends Vue {
     left: -22px;
     transform-origin: center;
     transform: rotate(-90deg);
-    transition: all .2s ease;
+    transition: all 0.2s ease;
     &:checked {
       transform: rotate(0);
       &:before {
         border: transparent;
-        background-color: #9AE6B4;
+        background-color: #9ae6b4;
       }
       &:after {
         transform: rotate(-45deg) scale(1);
@@ -1097,27 +1230,27 @@ export default class ArticleUpdate extends Vue {
       height: 16px;
       box-sizing: border-box;
       display: inline-block;
-      border: 1px solid #9AE6B4;
+      border: 1px solid #9ae6b4;
       border-radius: 2px;
       background-color: #fff;
       position: absolute;
       top: 0;
       left: 0;
-      transition: all .2s ease;
+      transition: all 0.2s ease;
     }
     &:after {
       content: "";
       transform: rotate(-45deg) scale(0);
       width: 9px;
       height: 5px;
-      border: 1px solid #22543D;
+      border: 1px solid #22543d;
       border-top: none;
       border-right: none;
       position: absolute;
       display: inline-block;
       top: 4px;
       left: 4px;
-      transition: all .2s ease;
+      transition: all 0.2s ease;
     }
   }
 
@@ -1135,7 +1268,7 @@ export default class ArticleUpdate extends Vue {
   }
 
   /deep/ mark {
-    background: #FAF089;
+    background: #faf089;
     color: #744210;
   }
 }
@@ -1143,7 +1276,8 @@ export default class ArticleUpdate extends Vue {
 .preview-title {
   font-size: 24px;
   font-weight: bold;
-  font-family: "Droid Serif","PingFang SC","Hiragino Sans GB","Droid Sans Fallback","Microsoft YaHei",sans-serif;
+  font-family: "Droid Serif", "PingFang SC", "Hiragino Sans GB",
+    "Droid Sans Fallback", "Microsoft YaHei", sans-serif;
 }
 
 .preview-date {
@@ -1159,8 +1293,8 @@ export default class ArticleUpdate extends Vue {
     display: inline-block;
     margin: 0 8px 8px 0;
     padding: 4px 8px;
-    background: #F7FAFC;
-    color: #4A5568;
+    background: #f7fafc;
+    color: #4a5568;
     border-radius: 20px;
   }
 }
@@ -1188,14 +1322,14 @@ export default class ArticleUpdate extends Vue {
         border-bottom: 1px solid #fafafa;
       }
       &:hover {
-        background: #FFFFF0;
-        color: #B7791F;
+        background: #fffff0;
+        color: #b7791f;
       }
 
       code {
         padding: 0px 4px;
         border-radius: 2px;
-        background: #EDF2F7;
+        background: #edf2f7;
       }
     }
   }
@@ -1213,7 +1347,7 @@ export default class ArticleUpdate extends Vue {
     }
     .number {
       font-size: 18px;
-      font-family: 'Droid Serif';
+      font-family: "Droid Serif";
     }
   }
 }

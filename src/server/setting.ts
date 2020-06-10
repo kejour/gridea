@@ -1,7 +1,7 @@
 import * as fse from 'fs-extra'
 import * as path from 'path'
 import Model from './model'
-import { ICommentSetting } from './interfaces/setting'
+import { ICommentSetting, IPrivatePostSetting } from './interfaces/setting'
 import { ISetting } from '../interfaces/setting'
 
 export default class Setting extends Model {
@@ -20,6 +20,11 @@ export default class Setting extends Model {
     return setting
   }
 
+  getPrivatePostSetting() {
+    const setting = this.$setting.get('privatePostSetting').value()
+    return setting
+  }
+
   public async saveSetting(setting: ISetting) {
     await this.$setting.set('config', setting).write()
     return true
@@ -30,6 +35,11 @@ export default class Setting extends Model {
     return true
   }
 
+  public async savePrivatePostSetting(setting: IPrivatePostSetting) {
+    await this.$setting.set('privatePostSetting', setting).write()
+    return true
+  }
+  
   async uploadFavicon(filePath: string) {
     const faviconPath = path.join(this.appDir, 'favicon.ico')
     fse.copySync(filePath, faviconPath)

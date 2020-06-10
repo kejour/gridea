@@ -3,7 +3,7 @@ import { IPostDb } from './post'
 import { ITag } from './tag'
 import { ITheme } from './theme'
 import { IMenu } from './menu'
-import { ICommentSetting } from './setting'
+import { ICommentSetting, IPrivatePostSetting } from './setting'
 import { ISetting } from '../../interfaces/setting'
 
 export interface IApplicationSetting {
@@ -22,6 +22,7 @@ export interface IApplicationDb {
   themes: any[]
   setting: ISetting
   commentSetting: ICommentSetting
+  privatePostSetting: IPrivatePostSetting
   currentThemeConfig: any[]
 }
 

@@ -5,6 +5,7 @@ export interface IPost {
   fileName: string
   tags: string[]
   date: string
+  privatePost: boolean
   content: string
   published: boolean
   hideInList: boolean
@@ -22,6 +23,7 @@ export interface IPost {
 
 export interface IPostData {
   title: string
+  private: boolean
   date: string
   published: boolean
   hideInList: boolean
@@ -61,6 +63,7 @@ export interface IPostRenderData {
   fileName: string
   abstract: string
   title: string
+  privatePost: boolean
   tags: ITagRenderData[]
   date: string
   dateFormat: string

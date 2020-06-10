@@ -34,3 +34,8 @@ export interface ICommentSetting {
   disqusSetting: IDisqusSetting
   gitalkSetting: IGitalkSetting
 }
+
+export interface IPrivatePostSetting {
+  enable: boolean,
+  key: string
+}

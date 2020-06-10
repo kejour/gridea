@@ -94,6 +94,10 @@ export default class App {
           shortname: '',
         },
       },
+      privatePostSetting: {
+        enable: false,
+        key: '',
+      },
     }
 
     this.checkDir()
@@ -121,6 +125,7 @@ export default class App {
     const settingInstance = new Setting(this)
     const setting = await settingInstance.getSetting()
     const commentSetting = await settingInstance.getCommentSetting()
+    const privatePostSetting = await settingInstance.getPrivatePostSetting()
 
     const deployInstance = new Deploy(this)
 
@@ -133,6 +138,7 @@ export default class App {
       currentThemeConfig,
       themes,
       setting,
+      privatePostSetting: privatePostSetting || this.db.privatePostSetting,
       commentSetting: commentSetting || this.db.commentSetting,
     }
     this.updateStaticServer()

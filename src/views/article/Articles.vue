@@ -70,6 +70,9 @@
             <div v-if="post.data.hideInList" class="text-xs flex items-center px-2 rounded-b rounded-br-none bg-gray-800 text-white">
               HIDE
             </div>
+            <div v-if="post.data.private" class="text-xs flex items-center px-2 rounded-b rounded-br-none bg-red-800 text-white">
+              Private
+            </div>
             <div v-if="post.data.isTop" class="ml-2 text-xs flex items-center px-2 rounded-b rounded-br-none bg-yellow-400 text-gray-900">
               TOP
             </div>

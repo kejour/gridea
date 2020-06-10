@@ -7,6 +7,7 @@ export interface IPostData {
   feature: string
   isTop: boolean
   isTweet: boolean
+  private: boolean
 }
 
 export interface IPost {

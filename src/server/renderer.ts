@@ -6,6 +6,7 @@ import ejs from 'ejs'
 import moment from 'moment'
 import less from 'less'
 import { Feed } from 'feed'
+import * as CryptoJS from 'crypto-js'
 import junk from 'junk'
 import { wordCount, timeCalc } from '../helpers/words-count'
 import Model from './model'
@@ -136,6 +137,7 @@ export default class Renderer extends Model {
           isTop: !!item.data.isTop,
           isTweet: !!item.data.isTweet,
           stats,
+          privatePost: item.data.private,
           description: `${content.replace(/<[^>]*>/g, '').substring(0, 120)}${content[121] ? '...' : ''}`,
         }
 
@@ -288,6 +290,11 @@ export default class Renderer extends Model {
     for (let i = 0; i < this.postsData.length; i += 1) {
       const post: IPostRenderData = { ...this.postsData[i] }
 
+      if (this.db.privatePostSetting.enable && post.privatePost) {
+        const contentUseAES = this.encryptionContentUseAES(post.content, this.db.privatePostSetting.key)
+        post.content = contentUseAES
+      }
+      
       if (!post.hideInList) {
         if (i < this.postsData.length - 1) {
           const nexPost = this.postsData.slice(i + 1, this.postsData.length).find((item: IPostRenderData) => !item.hideInList)
@@ -637,5 +644,13 @@ export default class Renderer extends Model {
     } catch (e) {
       console.log('Delete file error', e)
     }
+  }
+
+  encryptionContentUseAES(postContent: string, key: string) {
+    return CryptoJS.AES.encrypt(postContent, key).toString()
+  }
+
+  decryptionContentUseAES(encrypted: string, key: string) {
+    return CryptoJS.AES.decrypt(encrypted, key).toString(CryptoJS.enc.Utf8)
   }
 }
