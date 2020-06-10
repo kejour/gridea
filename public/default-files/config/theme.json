@@ -1,12 +1,12 @@
 {
   "config": {
-    "footerInfo": "Powered by <a href=\"https://github.com/getgridea/gridea\" target=\"_blank\">Gridea</a>",
+    "footerInfo": "",
     "postPageSize": 10,
     "archivesPageSize": 50,
     "showFeatureImage": true,
-    "siteDescription": "温故而知新",
+    "siteDescription": "古之君子，其过也，如日月之时，人皆见之；及其改，人皆仰之。",
     "siteName": "Gridea",
-    "themeName": "notes",
+    "themeName": "pure",
     "dateFormat": "YYYY-MM-DD",
     "postUrlFormat": "SLUG",
     "tagUrlFormat": "SHORT_ID",
