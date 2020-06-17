@@ -54,6 +54,10 @@ module.exports = {
     'import/no-extraneous-dependencies': 0,
     'global-require': 0,
     'no-continue': 0,
+    // 禁止使用八进制数字
+    'no-octal': 2,
+    // 禁止使用八进制转义序列
+    'no-octal-escape': 2,
   },
   parserOptions: {
     parser: '@typescript-eslint/parser',

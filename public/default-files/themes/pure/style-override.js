@@ -1,10 +1,5 @@
-/* eslint-disable no-redeclare */
 /* eslint-disable radix */
-/* eslint-disable vars-on-top */
-/* eslint-disable block-scoped-var */
-/* eslint-disable no-var */
 /* eslint-disable no-extend-native */
-
 const generateOverride = (params = {}) => {
   let result = ''
   const colors = {
@@ -55,11 +50,10 @@ const generateOverride = (params = {}) => {
     colors['accent-color-first'][params.skin] = params.caf
     colors['accent-color-second'][params.skin] = params.caf.colorRgba(0.2)
   }
-
-  console.log(`current theme: ${params.skin}`)
   if (!params.skin) {
     params.skin = 'black'
   }
+  // @ts-ignore
   result += `
         .gt-bg-theme-color-first {
           background: ${colors['theme-color-first'][params.skin]}!important;
@@ -155,23 +149,19 @@ const generateOverride = (params = {}) => {
         .gt-post-content code {
           background: ${colors['accent-color-second'][params.skin]}!important;
         }
-         `
+        `
   if (params.customCss) {
-    result += `
-      ${params.customCss}
-    `
+    result += `${params.customCss}`
   }
-  console.log(result)
   return result
 }
 
 /**
  * 十六进制颜色转 RGBA 颜色
- * @param alpha
+ * @param _alpha
  * @returns {string}
  */
-
-String.prototype.colorRgba = function (alpha = 1.0) {
+String.prototype.colorRgba = function (_alpha = 1.0) {
   let sColor = this.toLowerCase()
   // 十六进制颜色值的正则表达式
   const reg = /^#([0-9a-fA-f]{3}|[0-9a-fA-f]{6})$/
@@ -179,14 +169,14 @@ String.prototype.colorRgba = function (alpha = 1.0) {
   if (sColor && reg.test(sColor)) {
     if (sColor.length === 4) {
       let sColorNew = '#'
-      for (var i = 1; i < 4; i += 1) {
+      for (i = 1; i < 4; i += 1) {
         sColorNew += sColor.slice(i, i + 1).concat(sColor.slice(i, i + 1))
       }
       sColor = sColorNew
     }
     // 处理六位的颜色值
     const sColorChange = []
-    for (var i = 1; i < 7; i += 2) {
+    for (i = 1; i < 7; i += 2) {
       sColorChange.push(parseInt(`0x${sColor.slice(i, i + 2)}`))
     }
     return `RGBA(${sColorChange.join(',')},${alpha})`

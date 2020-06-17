@@ -1,4 +1,5 @@
 import { ActionTree, Module, MutationTree } from 'vuex'
+import { IPrivatePostSetting } from '@/server/interfaces/setting'
 import { IPost } from '../../interfaces/post'
 import { ITag } from '../../interfaces/tag'
 import { ITheme } from '../../interfaces/theme'
@@ -7,7 +8,6 @@ import { ISetting, ICommentSetting } from '../../interfaces/setting'
 import {
   DEFAULT_POST_PAGE_SIZE, DEFAULT_ARCHIVES_PAGE_SIZE, DEFAULT_FEED_COUNT, DEFAULT_ARCHIVES_PATH, DEFAULT_POST_PATH, DEFAULT_TAG_PATH,
 } from '../../helpers/constants'
-import { IPrivatePostSetting } from '@/server/interfaces/setting'
 
 export interface Site {
   appDir: string
