@@ -7,24 +7,25 @@
                     <% if (post.isTop) { %>
                     <span class="sticky-top-flag gt-bg-accent-color-first">置顶</span>
                     <% } %>
-                    <% if (post.isTweet) { %>
-                    <span class="sticky-top-flag gt-bg-accent-color-first">推文</span>
-                    <% } %>
                 </div>
 
                 <div>
                     <% if (post.isTweet) { %>
-                    <span class="post-title gt-c-content-color-first"><%= post.title %></span>
+                        <span class="post-title gt-c-content-color-second"><%= post.title %></span>
                     <% } else { %>
-                    <a href="<%= post.link %>">
-                        <span class="post-title gt-c-content-color-first"><%= post.title %></span>
-                    </a>
+                        <a href="<%= post.link %>">
+                            <span class="post-title gt-c-content-color-first"><%= post.title %></span>
+                        </a>
                     <% } %>
                 </div>
 
-                <div class="gt-post-content post-abstract gt-c-content-color-second">
-                    <%= post.abstract %>
-                </div>
+                <% if (post.isTweet) { %>
+                    <div class="gt-post-content post-abstract">
+                <% } else { %>
+                    <div class="gt-post-content post-abstract gt-c-content-color-second">
+                <% } %>
+                        <%- post.abstract %>
+                    </div>
 
                 <div class="post-info">
                     <time class="post-time gt-c-content-color-first">
