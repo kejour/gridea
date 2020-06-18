@@ -20,7 +20,6 @@
         var inputVal = document.getElementById('input-pwd').value;
         var p = CryptoJS.AES.decrypt('<%= post.content %>', inputVal)
         var result = p.toString(CryptoJS.enc.Utf8)
-        console.log("result: " + result)
         if (result !== undefined && result !== "") {
             document.getElementById('post-content').innerHTML = result;
             document.querySelectorAll('pre code').forEach((block) => {

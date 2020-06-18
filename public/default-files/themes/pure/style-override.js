@@ -158,10 +158,10 @@ const generateOverride = (params = {}) => {
 
 /**
  * 十六进制颜色转 RGBA 颜色
- * @param _alpha
+ * @param alpha
  * @returns {string}
  */
-String.prototype.colorRgba = function (_alpha = 1.0) {
+String.prototype.colorRgba = function (alpha = 1.0) {
   let sColor = this.toLowerCase()
   // 十六进制颜色值的正则表达式
   const reg = /^#([0-9a-fA-f]{3}|[0-9a-fA-f]{6})$/
